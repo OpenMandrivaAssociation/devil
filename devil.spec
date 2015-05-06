@@ -8,7 +8,7 @@
 Summary:	Open source image library
 Name:		devil
 Version:	1.7.8
-Release:	7
+Release:	7.1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://openil.sourceforge.net/
@@ -19,7 +19,7 @@ Patch1:		devil-1.7.8-libpng15.patch
 BuildRequires:	file
 BuildRequires:	libtool
 BuildRequires:	jpeg-devel
-BuildRequires:	mng-devel
+BuildRequires:	pkgconfig(libmng)
 BuildRequires:	tiff-devel
 BuildRequires:	ungif-devel
 BuildRequires:	pkgconfig(allegro)
