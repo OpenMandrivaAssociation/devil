@@ -17,7 +17,8 @@ Patch0:		DevIL-1.8.0-sonames.patch
 Patch1:		DevIL-1.8.0-compile.patch
 
 BuildRequires:	file
-BuildRequires:	libtool
+BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(libmng)
 BuildRequires:	tiff-devel
