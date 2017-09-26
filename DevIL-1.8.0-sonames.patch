@@ -1,0 +1,41 @@
+--- DevIL/DevIL/src-IL/CMakeLists.txt.0000~	2017-09-26 02:25:56.862256557 +0200
++++ DevIL/DevIL/src-IL/CMakeLists.txt	2017-09-26 02:25:56.878256844 +0200
+@@ -58,6 +58,7 @@ source_group("Text Files" FILES ${DevIL_
+ 
+ if(BUILD_SHARED_LIBS)
+     add_library(IL SHARED ${DevIL_SRCS} ${DevIL_INC} ${DevIL_RSRC} ${DevIL_TXT})
++    set_target_properties(IL PROPERTIES VERSION 1.0.0 SOVERSION 1)
+ else(BUILD_SHARED_LIBS)
+     add_library(IL ${DevIL_SRCS} ${DevIL_INC} ${DevIL_RSRC} ${DevIL_TXT})
+ endif(BUILD_SHARED_LIBS)
+--- DevIL/DevIL/src-ILU/CMakeLists.txt.0000~	2017-09-26 02:25:56.838256127 +0200
++++ DevIL/DevIL/src-ILU/CMakeLists.txt	2017-09-26 02:35:21.573319799 +0200
+@@ -44,13 +44,17 @@ source_group("Resource Files" FILES ${IL
+ 
+ # Remove SHARED to create a static library
+ add_library(ILU SHARED ${ILU_SRCS} ${ILU_INC} ${ILU_RSRC})
+-
++set_target_properties(ILU PROPERTIES VERSION 1.0.0 SOVERSION 1)
+ 
+ ## ILU requires IL
+ target_link_libraries(ILU
+ 	IL
+ )
+ 
++add_executable(ilur ilur/ilur.c)
++target_link_libraries(ilur ILU IL)
++install(TARGETS ilur DESTINATION bin)
++
+ # generate pkg-config file
+ # TODO: add Requires.private or Libs.private
+ # (needed to support static linking?)
+--- DevIL/DevIL/src-ILUT/CMakeLists.txt.0000~	2017-09-26 02:25:56.868256665 +0200
++++ DevIL/DevIL/src-ILUT/CMakeLists.txt	2017-09-26 02:25:56.878256844 +0200
+@@ -44,6 +44,7 @@ source_group("Resource Files" FILES ${IL
+ 
+ # Remove SHARED to create a static library
+ add_library(ILUT SHARED ${ILUT_SRCS} ${ILUT_INC} ${ILUT_RSRC})
++set_target_properties(ILUT PROPERTIES VERSION 1.0.0 SOVERSION 1)
+ 
+ ## add link sub library info
+ target_link_libraries(ILUT

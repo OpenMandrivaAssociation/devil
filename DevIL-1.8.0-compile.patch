@@ -1,0 +1,11 @@
+--- DevIL/DevIL/src-IL/src/il_dds-save.cpp.omv~	2017-09-26 02:37:58.200097070 +0200
++++ DevIL/DevIL/src-IL/src/il_dds-save.cpp	2017-09-26 02:38:05.800231743 +0200
+@@ -708,7 +708,7 @@ ILuint Compress(ILimage *Image, ILenum D
+ 			if (DXTCFormat == IL_DXT1 || DXTCFormat == IL_DXT1A || DXTCFormat == IL_DXT3 || DXTCFormat == IL_DXT5) {
+ 				// NVTT needs data as BGRA 32-bit.
+ 				if (Image->Format != IL_BGRA || Image->Type != IL_UNSIGNED_BYTE) {  // No need to convert if already this format/type.
+-					ByteData = ilConvertBuffer(Image->SizeOfData, Image->Format, IL_BGRA, Image->Type, IL_UNSIGNED_BYTE, NULL, Image->Data);
++					ByteData = (unsigned char*)ilConvertBuffer(Image->SizeOfData, Image->Format, IL_BGRA, Image->Type, IL_UNSIGNED_BYTE, NULL, Image->Data);
+ 					if (ByteData == NULL)
+ 						return 0;
+ 				}

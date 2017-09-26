@@ -7,14 +7,14 @@
 
 Summary:	Open source image library
 Name:		devil
-Version:	1.7.8
-Release:	13
+Version:	1.8.0
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://openil.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/openil/%{oname}-%{version}.tar.gz
-Patch0:		devil-1.7.8-CVE-2009-3994.patch
-Patch1:		devil-1.7.8-libpng15.patch
+Patch0:		DevIL-1.8.0-sonames.patch
+Patch1:		DevIL-1.8.0-compile.patch
 
 BuildRequires:	file
 BuildRequires:	libtool
@@ -84,52 +84,29 @@ Obsoletes:	%{_lib}devel-static-devel = %{version}-%{release}
 Development headers and libraries for writing programs using %{oname}.
 
 %prep
-%setup -q
+%setup -qn DevIL
 %apply_patches
-
-chmod 644 AUTHORS CREDITS ChangeLog Libraries.txt README.unix
 
 # strip away annoying ^M
 find . -type f|xargs file|grep 'CRLF'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 
-# Don't second-guess compiler flags -- std=gnu99 isn't valid for C++
-sed -i -e 's,-std=gnu99 ,,g' m4/devil-definitions.m4 configure
-# C++ doesn't have restrict, but it has __restrict
-sed -i -e 's,restrict,__restrict,g' include/IL/il.h
+%if "%_lib" != "lib"
+find . -name CMakeLists.txt |xargs sed -i -e 's,DESTINATION lib,DESTINATION %_lib,g'
+%endif
+
+mkdir DevIL/build
+cd DevIL
+%cmake -G Ninja \
+	-DIL_USE_DXTC_NVIDIA:BOOL=OFF
 
 %build
-export CFLAGS="%{optflags} -Ofast -funroll-loops -ffast-math -fomit-frame-pointer"
-# using autogen.sh results in configure failing with a problem in
-# ADD_CFLAGS, as of 0.7.3 - AdamW 2008/12
-#autoreconf
-
-%configure	\
-	--disable-static \
-	--enable-shared \
-	--enable-IL \
-	--enable-ILU \
-	--enable-ILUT \
-%ifnarch ix86
-	--enable-x86_64 \
-	--enable-sse \
-	--enable-sse2 \
-	--disable-sse3 \
-%else
-	--enable-x86 \
-	--disable-x86_64
-	--disable-sse \
-	--disable-sse2 \
-	--disable-sse3 \
-%endif
-	--with-x \
-	--with-zlib=yes \
-	--enable-release
-
-%make CPPFLAGS="-DNOINLINE"
+cd DevIL
+%ninja -C build
 
 %install
-%makeinstall_std
+cd DevIL
+%ninja_install -C build
 
 %files utils
 %{_bindir}/ilur
@@ -144,9 +121,6 @@ export CFLAGS="%{optflags} -Ofast -funroll-loops -ffast-math -fomit-frame-pointe
 %{_libdir}/libILUT.so.%{major}*
 
 %files -n %{devname}
-%doc AUTHORS CREDITS ChangeLog Libraries.txt README.unix
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/IL
-%{_infodir}/*.info.*
-
