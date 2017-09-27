@@ -4,9 +4,14 @@
 %define libILU %mklibname ILU %{major}
 %define libILUT %mklibname ILUT %{major}
 %define devname %mklibname %{name} -d
+%define resildevname %mklibname resil -d
 
 Summary:	Open source image library
 Name:		devil
+# We need to outnumber resil
+# (previous fork -- ahead in version numbers but
+# far behind in Linux support)
+Epoch:		1
 Version:	1.8.0
 Release:	1
 License:	LGPLv2+
@@ -42,7 +47,8 @@ own project.
 %package 	utils
 Summary:	Tools provided by %{oname}
 Group:		System/Libraries
-Provides:	%{name} = %{version}-%{release}
+Provides:	%{name} = %{EVRD}
+%rename resil-utils
 
 %description	utils
 This package contains tools provided by %{oname}.
@@ -50,7 +56,7 @@ This package contains tools provided by %{oname}.
 %package -n %{libIL}
 Summary:	Libraries needed for programs using %{oname}
 Group:		System/Libraries
-Obsoletes:	%{_lib}devil1 < %{version}-%{release}
+Obsoletes:	%{_lib}devil1 < %{EVRD}
 
 %description -n	%{libIL}
 This package contains the shared library for %{oname}.
@@ -58,7 +64,7 @@ This package contains the shared library for %{oname}.
 %package -n %{libILU}
 Summary:	Libraries needed for programs using %{oname}
 Group:		System/Libraries
-Conflicts:	%{_lib}devil1 < %{version}-%{release}
+Conflicts:	%{_lib}devil1 < %{EVRD}
 
 %description -n	%{libILU}
 This package contains the shared library for %{oname}.
@@ -66,7 +72,7 @@ This package contains the shared library for %{oname}.
 %package -n %{libILUT}
 Summary:	Libraries needed for programs using %{oname}
 Group:		System/Libraries
-Conflicts:	%{_lib}devil1 < %{version}-%{release}
+Conflicts:	%{_lib}devil1 < %{EVRD}
 
 %description -n	%{libILUT}
 This package contains the shared library for %{oname}.
@@ -74,12 +80,13 @@ This package contains the shared library for %{oname}.
 %package -n %{devname}
 Summary:	Development headers and libraries for writing programs using %{oname}
 Group:		Development/C
-Requires:	%{libIL} = %{version}-%{release}
-Requires:	%{libILU} = %{version}-%{release}
-Requires:	%{libILUT} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
+Requires:	%{libIL} = %{EVRD}
+Requires:	%{libILU} = %{EVRD}
+Requires:	%{libILUT} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
+Obsoletes:	resil-devel < %{EVRD}
 %define __noautoreq 'devel\\(liballeg.*'
-Obsoletes:	%{_lib}devel-static-devel = %{version}-%{release}
+%rename %{resildevname}
 
 %description -n	%{devname}
 Development headers and libraries for writing programs using %{oname}.
