@@ -13,7 +13,7 @@ Name:		devil
 # far behind in Linux support)
 Epoch:		1
 Version:	1.8.0
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://openil.sourceforge.net/
@@ -92,8 +92,7 @@ Obsoletes:	resil-devel < %{EVRD}
 Development headers and libraries for writing programs using %{oname}.
 
 %prep
-%setup -qn DevIL
-%apply_patches
+%autosetup -qn DevIL -p1
 
 # strip away annoying ^M
 find . -type f|xargs file|grep 'CRLF'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
