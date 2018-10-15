@@ -92,7 +92,7 @@ Obsoletes:	resil-devel < %{EVRD}
 Development headers and libraries for writing programs using %{oname}.
 
 %prep
-%autosetup -qn DevIL -p1
+%autosetup -n DevIL -p1
 
 # strip away annoying ^M
 find . -type f|xargs file|grep 'CRLF'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
