@@ -13,7 +13,7 @@ Name:		devil
 # far behind in Linux support)
 Epoch:		1
 Version:	1.8.0
-Release:	4
+Release:	5
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://openil.sourceforge.net/
@@ -31,7 +31,7 @@ BuildRequires:	ungif-devel
 BuildRequires:	pkgconfig(allegro)
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(jasper)
-BuildRequires:	pkgconfig(lcms)
+BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(OpenEXR)
 BuildRequires:	pkgconfig(sdl)
@@ -85,7 +85,7 @@ Requires:	%{libILU} = %{EVRD}
 Requires:	%{libILUT} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 Obsoletes:	resil-devel < %{EVRD}
-%define __noautoreq 'devel\\(liballeg.*'
+%define __requires_exclude 'devel\\(liballeg.*'
 %rename %{resildevname}
 
 %description -n	%{devname}
