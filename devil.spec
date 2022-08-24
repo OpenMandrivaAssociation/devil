@@ -13,13 +13,14 @@ Name:		devil
 # far behind in Linux support)
 Epoch:		1
 Version:	1.8.0
-Release:	5
+Release:	6
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://openil.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/openil/%{oname}-%{version}.tar.gz
 Patch0:		DevIL-1.8.0-sonames.patch
 Patch1:		DevIL-1.8.0-compile.patch
+Patch2:		DevIL-jasper-3.0.6.patch
 
 BuildRequires:	file
 BuildRequires:	cmake

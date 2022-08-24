@@ -1,0 +1,19 @@
+diff -up DevIL/DevIL/src-IL/src/il_jp2.cpp.omv~ DevIL/DevIL/src-IL/src/il_jp2.cpp
+--- DevIL/DevIL/src-IL/src/il_jp2.cpp.omv~	2022-08-24 13:38:08.700555237 +0200
++++ DevIL/DevIL/src-IL/src/il_jp2.cpp	2022-08-24 13:39:34.500160058 +0200
+@@ -314,13 +314,13 @@ ILboolean iLoadJp2Internal(jas_stream_t
+ 
+ 
+ 
+-static int iJp2_file_read(jas_stream_obj_t *obj, char *buf, int cnt)
++static ssize_t iJp2_file_read(jas_stream_obj_t *obj, char *buf, unsigned long cnt)
+ {
+ 	obj;
+ 	return iread(buf, 1, cnt);
+ }
+ 
+-static int iJp2_file_write(jas_stream_obj_t *obj, char *buf, int cnt)
++static ssize_t iJp2_file_write(jas_stream_obj_t *obj, const char *buf, size_t cnt)
+ {
+ 	obj;
+ 	return iwrite(buf, 1, cnt);
