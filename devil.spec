@@ -16,7 +16,7 @@ Version:	1.8.0
 Release:	8
 License:	LGPLv2+
 Group:		System/Libraries
-Url:		http://openil.sourceforge.net/
+Url:		https://openil.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/openil/%{oname}-%{version}.tar.gz
 Patch0:		DevIL-1.8.0-sonames.patch
 Patch1:		DevIL-1.8.0-compile.patch
