@@ -13,7 +13,7 @@ Name:		devil
 # far behind in Linux support)
 Epoch:		1
 Version:	1.8.0
-Release:	8
+Release:	9
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		https://openil.sourceforge.net/
